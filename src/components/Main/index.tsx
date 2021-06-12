@@ -1,7 +1,15 @@
 import styles from './styles.module.scss'
 import { SubscribeButton } from './SubscribeButton'
 
-export function Main() {
+interface MainProps {
+    price: number;
+    priceId: string;
+}
+
+export function Main({
+    price,
+    priceId
+}:MainProps) {
     return (
         <main className={styles.contentContainer}>
             <section className={styles.hero}>
@@ -9,9 +17,16 @@ export function Main() {
                 <h1>News about the <span>React</span> world</h1>
                 <p>
                     Get access to all publications <br />
-                    <span>for $9.90 month</span>
+                    <span>for {
+                        Intl.NumberFormat("en-US", {
+                            style:"currency",
+                            currency: "USD"
+                        }).format(price)    
+                    } month</span>
                 </p>
-                <SubscribeButton />
+                <SubscribeButton 
+                    priceId={priceId}
+                />
             </section>
 
             <img src="/images/avatar.svg" alt="Girl Coding" />
